@@ -1,41 +1,53 @@
-import React from "react";
-import AddResume from "../_components/AddResume";
-import ResumeList from "../_components/ResumeList";
-import TrashListBox from "../_components/TrashListBox";
+"use client"
+import React from "react"
+import { PlusCircle, Trash2 } from 'lucide-react'
+import AddResume from "../_components/AddResume"
+import ResumeList from "../_components/ResumeList"
+import TrashListBox from "../_components/TrashListBox"
+import { Button } from "@/components/ui/button"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import { Separator } from "react-simple-wysiwyg"
 
-const Page = () => {
+export default function DashboardPage() {
   return (
-    <div className="w-full">
-      <div className="w-full mx-auto max-w-7xl py-5 px-5">
-        <div className="flex items-start justify-between">
-          <div>
-            <h1 className="text-2xl font-bold">Resume Builder</h1>
-            <p className="text-base dark:text-inherit">
-              Create your own custom resume with AI & Subscribe to the channel
-            </p>
+    <div className=" mx-auto px-4 py-8">
+      <Card>
+        <CardHeader>
+          <div className="flex items-center justify-between">
+            <div>
+              <CardTitle className="text-3xl font-bold">
+                Your Resume Hub
+              </CardTitle>
+              <CardDescription className="mt-2 text-lg">
+                Craft professional resumes with AI-powered tools and expert
+                templates
+              </CardDescription>
+            </div>
+            <div className="flex items-center gap-4">
+              <Button variant="outline" size="sm">
+                <PlusCircle className="mr-2 h-4 w-4" />
+                New Resume
+              </Button>
+              <TrashListBox />
+            </div>
           </div>
-          <div className="shrink-0 flex items-center gap-3">
-            {/* {Trash List} */}
-            <TrashListBox />
-          </div>
-        </div>
-
-        <div className="w-full pt-11">
-          <h5
-            className="text-xl font-semibold dark:text-inherit
-          mb-3
-          "
-          >
-            All Resume
-          </h5>
-          <div className="flex flex-wrap w-full gap-5">
+        </CardHeader>
+        <CardContent>
+          {/* <Separator className="my-6" /> */}
+          <hr />
+          <h2 className="mb-4 text-2xl font-semibold">Your Resumes</h2>
+          <div className="grid gap-6 sm:grid-cols-4 lg:grid-cols-6">
             <AddResume />
             <ResumeList />
           </div>
-        </div>
-      </div>
+        </CardContent>
+      </Card>
     </div>
-  );
-};
-
-export default Page;
+  )
+}

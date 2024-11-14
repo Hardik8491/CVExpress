@@ -1,64 +1,45 @@
-"use client";
-import React, { Fragment } from "react";
-import Link from "next/link";
-import { ChevronDown, Loader, Moon, Sun } from "lucide-react";
+'use client'
+
+import React, { Fragment } from "react"
+import Link from "next/link"
+import { ChevronDown, Loader, Moon, Sun } from 'lucide-react'
 import {
   LogoutLink,
   useKindeBrowserClient,
-} from "@kinde-oss/kinde-auth-nextjs";
+} from "@kinde-oss/kinde-auth-nextjs"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { useTheme } from "next-themes";
-import { Button } from "@/components/ui/button";
+} from "@/components/ui/dropdown-menu"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { useTheme } from "next-themes"
+import { Button } from "@/components/ui/button"
 
-const Header = () => {
-  const { setTheme } = useTheme();
-  const { user, isAuthenticated, isLoading, error } = useKindeBrowserClient();
+export default function Header() {
+  const { setTheme } = useTheme()
+  const { user, isAuthenticated, isLoading, error } = useKindeBrowserClient()
+
   return (
-    <div
-      className="shadow-sm w-full sticky
-    top-0 bg-white dark:bg-gray-900 z-[9]
-        "
-    >
-      <div
-        className="w-full mx-auto max-w-7xl
-        py-2 px-5 flex items-center justify-between
-        "
-      >
-        <div
-          className="flex items-center
-            flex-1 gap-9
-            "
-        >
+    <div className="sticky top-0 z-[9] w-full bg-white shadow-sm dark:bg-gray-900">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-2">
+        <div className="flex flex-1 items-center gap-9">
           <div>
             <Link
               href="/dashboard"
-              className="font-black text-[20px]
-                      text-primary
-                          "
+              className="text-[20px] font-black text-primary"
             >
-              CVbuild.ai
+              CVExpress
             </Link>
           </div>
 
           {isAuthenticated && user ? (
             <div className="flex items-center gap-2">
-              <span
-                className="font-normal
-               text-black/50
-               dark:text-primary-foreground"
-              >
+              <span className="font-normal text-black/50 dark:text-primary-foreground">
                 Hi,
               </span>
-              <h5
-                className="font-bold text-black 
-              dark:text-primary-foreground"
-              >
+              <h5 className="font-bold text-black dark:text-primary-foreground">
                 {user?.given_name} {user?.family_name}
               </h5>
             </div>
@@ -87,33 +68,31 @@ const Header = () => {
             </DropdownMenuContent>
           </DropdownMenu>
           {isLoading || error ? (
-            <Loader
-              className="animate-spin !size-6 text-black
-          dark:text-white
-                      "
-            />
+            <Loader className="!size-6 animate-spin text-black dark:text-white" />
           ) : (
             <Fragment>
               {isAuthenticated && user ? (
                 <DropdownMenu>
-                  <DropdownMenuTrigger role="button">
-                    <div className="flex items-center gap-1">
-                      <Avatar role="button" className="!cursor-pointer">
+                  <DropdownMenuTrigger asChild>
+                    <Button
+                      variant="ghost"
+                      className="flex items-center gap-1 p-0"
+                    >
+                      <Avatar>
                         <AvatarImage src={user?.picture || ""} />
-                        <AvatarFallback className="!cursor-pointer">
+                        <AvatarFallback>
                           {user?.given_name?.[0]}
                           {user?.family_name?.[0]}
                         </AvatarFallback>
                       </Avatar>
-                      <ChevronDown size="17px" />
-                    </div>
+                      <ChevronDown className="size-4" />
+                    </Button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent className="my-3">
-                    <DropdownMenuItem
-                      asChild
-                      className="!text-red-500 !cursor-pointer font-medium"
-                    >
-                      <LogoutLink>Log out</LogoutLink>
+                  <DropdownMenuContent className="mt-2">
+                    <DropdownMenuItem asChild>
+                      <LogoutLink className="cursor-pointer font-medium text-red-500">
+                        Log out
+                      </LogoutLink>
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
@@ -123,7 +102,5 @@ const Header = () => {
         </div>
       </div>
     </div>
-  );
-};
-
-export default Header;
+  )
+}
