@@ -17,7 +17,7 @@ app.onError((err, c) => {
   return c.json({ error: "internal error" });
 });
 
- const routes = app.basePath("/api").route("/document", documentRoute);
+const routes = app.basePath("/api").route("/document", documentRoute);
 
 app.get("/", (c) => {
   return c.json({
